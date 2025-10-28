@@ -12,8 +12,8 @@ const reminders = (state = [], action) => {
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
 
-        //   const serverUrl = 'http://localhost:5000'
-         const serverUrl = 'https://madeformanners-backend.onrender.com'
+        //    const serverUrl = 'http://localhost:5000'
+          const serverUrl = 'https://madeformanners-backend.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
         // <SEO>
         const websiteTitle = `Made for Manners`

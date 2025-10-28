@@ -1,6 +1,11 @@
 @import '../../App.scss';
 
 .course-details-modal {
+  .noti1 {
+    color: $alert-color;
+    
+  }
+
   img {
     width: 100%;
     max-height: 300px;
@@ -19,7 +24,8 @@
       margin-right: 5px;
     }
   }
-  .booked-label{
+
+  .booked-label {
     color: rgb(23, 204, 23);
   }
 

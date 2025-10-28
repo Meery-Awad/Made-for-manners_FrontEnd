@@ -28,20 +28,24 @@ const CourseDetailsModal = ({ show, onClose, course, onBook, userDetails }) => {
             </Modal.Header>
             <Modal.Body>
                 <div className="course-details-modal">
-                    {course.link ? <video
-                        src={course.link}
-                        controls
-                    />
-                        :
-                        <div>
-                            <p >This course has not been recordedd</p>
-                            <img
-                                src={course.img}
-                                alt={course.name}
-
-                            />
-                        </div>
-                    }
+                    {booked ? (
+                        course.link ? (
+                            <video src={course.link} controls poster={course.img} />
+                        ) : (
+                            <div>
+                                <p>This course has not been recorded</p>
+                                <img src={course.img} alt={course.name} />
+                            </div>
+                        )
+                    ) : (
+                        <>
+                        <p className="not-booked-label noti1" >
+                            You need to book this course to watch the video
+                             
+                        </p>
+                        <img src={course.img} alt={course.name} />
+                        </>
+                    )}
 
                     {booked && (
                         <p className="booked-label"><i className="fas fa-check"></i> {booked}</p>
@@ -63,7 +67,7 @@ const CourseDetailsModal = ({ show, onClose, course, onBook, userDetails }) => {
                         Book
                     </Button>
                 }
-    
+
             </Modal.Footer>
         </Modal>
     );
