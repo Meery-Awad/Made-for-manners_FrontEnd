@@ -1,0 +1,78 @@
+@import '../../App.scss';
+
+.admin-messages {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+
+
+    font-family: 'Arial', sans-serif;
+    color: #333;
+
+    .NoMessage {
+
+        margin: 0;
+
+        text-align: center;
+
+
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: $font-Size;
+        color: $First-Color;
+    }
+
+    .messages-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .message-card {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: translateY(-3px);
+            }
+
+            p {
+                margin: 5px 0;
+                line-height: 1.4;
+
+            }
+
+            p {
+                color: $Font-Color;
+            }
+
+            strong {
+                color: #333;
+            }
+
+            .message-body {
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid #eee;
+
+                strong {
+                    display: block;
+                    margin-bottom: 5px;
+
+
+                }
+
+                p {
+                    margin: 0;
+                    white-space: pre-line;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,230 @@
+// $First-Color: #d9b53c;
+// $Second-Color: #70caed;
+$First-Color: #C6A662;
+$Second-Color: #B7B4A9;
+$background-color: azure;
+$Font-Color : #2B2B2A;
+$btn-color: #555;
+
+$btn-bg: #fff;
+$btn-hover-bg: #f0f0f0;
+$btn-height: 40px;
+$btn-padding: 0 15px;
+
+$light-bg: #F8F3E8;
+$alert-color : rgb(243, 98, 98);
+
+$Font-Size: 22px;
+$font-Size: 1.7rem;
+$margin-top: 40px;
+$top: 6.5rem;
+$width: 80vw;
+
+body {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $Font-Color;
+  background-color: $light-bg;
+  padding: 0 25px;
+
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+.content {
+  flex: 1;
+
+}
+
+@mixin flexBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin ellipsis-horizontal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin section-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .line {
+    width: 100%;
+    height: 3px;
+    background-color: $First-Color;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  i {
+    background-color: $light-bg; // يغطي الخط خلف الأيقونة
+    padding: 0 8px;
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+  }
+}
+
+
+@mixin flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+$num : 3.5rem;
+
+@mixin h1 {
+  font-size: $font-Size;
+  font-weight: 600;
+  color: $First-Color;
+ 
+  text-align: center;
+}
+
+@mixin btn {
+  background-color: $btn-bg;
+  color: $First-Color;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  border-radius: 8px;
+  height: $btn-height;
+  padding: $btn-padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: $btn-height;
+
+  box-shadow:
+
+    -2.72px -2.72px 3.2px #eeeeee inset,
+    3.2px 3.2px 3.2px #f6f6f6 inset;
+
+  &:hover {
+
+    transition: 0.4s box-shadow;
+    box-shadow:
+      -2.72px -2.72px 3.2px transparent,
+      0px 0px 6.4px transparent,
+      0px 0px 0px -1.6px #dbdbdb,
+      -2.72px -2.72px 3.2px #efefef inset,
+      3.2px 3.2px 3.2px #dadada inset;
+  }
+}
+
+.NoCourses {
+  width: 90vw;
+  @include flexBox();
+}
+
+
+.recommended {
+  margin: 1rem 0 2.3rem;
+
+  .topic {
+
+    @include h1;
+
+  }
+
+  .line-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+   
+
+    .line {
+      width: 100%;
+      height: 3px;
+      background-color: $First-Color;
+      position: absolute;
+      z-index: 1;
+
+    }
+
+    i {
+      color: $First-Color;
+      background-color: $light-bg;
+      padding: 0 8px;
+      position: relative;
+      z-index: 2;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.noti {
+  text-align: center;
+  color: $alert-color;
+  margin-bottom: 2rem;
+}
+
+img {
+  object-fit: contain;
+}
+
+
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  color: #888;
+  cursor: pointer;
+  font-size: 15px;
+  background: transparent;
+}
+
+.eye-icon:hover {
+  color: $First-Color
+}
+
+.modal-header .btn-close {
+  color: $First-Color !important;
+}
+
+.modal-content .deleteImgBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #e6f0ff;
+  color: red;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

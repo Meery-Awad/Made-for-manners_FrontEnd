@@ -1,0 +1,53 @@
+// SuccessPayment.scss
+@import '../../App.scss';
+.successCont {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+  padding: 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #16a34a;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .backBtn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      border: none;
+      background: $First_Color;
+      color: #fff;
+      transition: all 0.2s ease;
+
+      &:hover {
+        box-shadow: 1px 1px 1px $First_Color;
+      }
+    }
+  }
+}

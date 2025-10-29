@@ -1,0 +1,75 @@
+@import '../../App.scss';
+
+
+@mixin style {
+  color: $First-Color;
+  font-size: $font-Size;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sortAndFilter {
+
+  .dropdown-toggle {
+    @include btn;
+
+    &:hover,
+    &:focus {
+      background-color: $btn-hover-bg;
+      color: $btn-color;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+
+  .dropdown-menu {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-width: 220px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 6px;
+      padding: 6px 10px;
+      transition: all 0.2s;
+      cursor: pointer;
+      color: $btn-color;
+
+      &:hover {
+        background-color: $btn-hover-bg;
+      }
+
+      i {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .fas.fa-sync-alt {
+    font-size: 16px;
+    color: $First-Color;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $btn-height;
+    width: $btn-height;
+    border-radius: 8px;
+    background-color: $btn-bg;
+    border: 1px solid #ddd;
+  
+
+    &:hover {
+      transform: rotate(90deg);
+      background-color: $btn-hover-bg;
+      color: darken($btn-color, 10%);
+    }
+  }
+}

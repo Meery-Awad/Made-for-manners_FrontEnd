@@ -1,0 +1,202 @@
+@import '../../App.scss';
+
+$num: 18rem;
+$border-radius: 20px;
+$margin-top: 10px;
+$card-bg: #ffffff;
+$shadow-light: rgba(0, 0, 0, 0.08);
+$shadow-dark: rgba(0, 0, 0, 0.15);
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.PageContaner {
+  margin-top: $top;
+
+  .row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:-13px 0 1rem 0;
+    .secondSide {
+      display: flex;
+    }
+  }
+}
+
+.itemsContaner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: $light-bg;
+
+  .mainContaner {
+    display: flex;
+    flex-wrap: wrap;
+    width: $width;
+    justify-content: center;
+    gap: 25px;
+    background-color: transparent;
+  }
+
+  .CourseItem {
+    width: $num;
+    height: calc(#{$num + 13rem});
+    background-color: $card-bg;
+    border-radius: $border-radius;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 20px $shadow-light;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    animation: slideDown 0.5s ease forwards;
+
+    &:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 15px 25px $shadow-dark;
+    }
+
+    .imageWrapper {
+      position: relative;
+
+      img {
+        object-fit: cover;
+        border-bottom: 4px solid $Second-Color;
+        transition: transform 0.3s ease;
+        width: 100%;
+        height: 200px;
+        margin-bottom: 10px;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      .particNum {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: $First-Color;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 14px;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: 0px 15px 10px;
+      gap: 10px;
+
+      .price {
+        color: rgb(23, 204, 23);
+        font-weight: 700;
+        font-size: 1.3rem;
+        display: flex;
+        p{
+          font-size: 17px;
+          margin: 3px 10px;
+         
+        }
+      }
+
+      .name {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: gray;
+        @include ellipsis-horizontal;
+      }
+
+      .date {
+        color: $Font-Color;
+        display: flex;
+        justify-content: space-between;
+
+        .fas {
+          opacity: 0.7;
+          transform: scale(.8);
+        }
+      }
+
+      .description {
+        font-size: 1rem;
+        color: rgb(114, 114, 114);
+        line-height: 1.5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+
+      .bottomRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icons i {
+          cursor: pointer;
+          padding: 0 5px;
+          font-size: 1.1rem;
+          transition: color 0.3s, transform 0.2s;
+          color: $Second-Color;
+
+          &:hover {
+            color: $First-Color;
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      .courseBtn {
+        margin-top: auto;
+        align-self: center;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, $First-Color, $Second-Color);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s;
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 15px $shadow-dark;
+          background: linear-gradient(135deg, $Second-Color, $First-Color);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContaner {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .CourseItem {
+    width: 90vw;
+  }
+}
+
+

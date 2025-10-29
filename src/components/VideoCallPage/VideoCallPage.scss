@@ -1,0 +1,204 @@
+@import '../../App.scss';
+
+.VideoCall {
+  text-align: center;
+  margin: 20px;
+  margin-top: $top;
+  width: $width;
+
+  h2 {
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .recommended {
+    margin-bottom: 2rem;
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    height: 80%;
+  }
+
+  .join-btn,
+  .leave-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .join-btn {
+    background: $First-Color;
+    color: #fff;
+
+    &:hover {
+      background: darken($First-Color, 10%);
+    }
+  }
+
+  .leave-btn {
+    background: $Second-Color;
+    color: #fff;
+
+    &:hover {
+      background: darken($Second-Color, 10%);
+    }
+  }
+
+  .video-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 12px;
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+
+    .admin-card {
+      grid-column: 1;
+      grid-row: 1;
+
+      background: #000;
+    }
+
+    .others-grid {
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      align-content: start;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-card {
+      width: 100%;
+      height: 50vh;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+      .video-label {
+        text-align: center;
+        background: #f0f0f0;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 4px;
+      }
+
+      .video-box {
+        flex-grow: 1;
+        background: black;
+        width: 100%;
+
+      }
+
+
+      .video-status {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 3px;
+
+        i {
+          font-size: 16px;
+          color: $Font-Color;
+          background: white;
+          border: 1px solid $Font-Color;
+          border-radius: 5px;
+          padding: 5px 8px;
+        }
+      }
+
+      .video-controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 3px;
+
+        button {
+          background: rgba(0, 128, 0, 0.7);
+          border: none;
+          border-radius: 5px;
+          padding: 5px 8px;
+          cursor: pointer;
+
+          i {
+            font-size: 16px;
+            color: #fff;
+          }
+
+          &:hover {
+            background: rgba(0, 128, 0, 1);
+          }
+        }
+      }
+    }
+  }
+
+
+
+  @media (max-width: 768px) {
+    .video-container {
+      grid-template-columns: 1fr;
+
+      .admin-card {
+        grid-column: 1;
+      }
+
+      .others-grid {
+        grid-column: 1;
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+  }
+}
+
+$righSide: 5px;
+$top: 80px;
+
+#admin-hamburger {
+  position: absolute;
+  right: $righSide;
+  top: $top;
+  font-weight: bold;
+  color: $First-Color;
+  border: 1px solid $First-Color;
+  box-shadow: 1px 1px 1px $Second-Color;
+  padding: 25px 2px;
+  font-size: 20px;
+}
+
+#admin-menu {
+  position: absolute;
+  right: $righSide + 22px;
+  top: $top;
+  padding: 20px;
+  background-color: white;
+  border: 0.5px solid $Second-Color;
+  z-index: 1000;
+  width: 30%;
+  gap: 50px;
+  color: #333
+}
+
+@media (max-width: 768px) {
+   
+    #admin-menu {
+
+      width: 90%;
+    }
+
+  }

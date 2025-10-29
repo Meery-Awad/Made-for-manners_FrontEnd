@@ -1,0 +1,209 @@
+@import '../../App.scss';
+
+.Home {
+  margin-top: $top;
+
+  .recommended {
+    img {
+      width: 25px;
+      height: 25px;
+
+    }
+
+  }
+
+  section {
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  // --- Hero Section ---
+  .hero {
+    padding: 3rem 1rem;
+    background-color: #fafafa;
+    border-radius: 20px;
+    text-align: center;
+
+    h1 {
+      font-size: $font-Size;
+      color: $First-Color;
+      font-weight: 600;
+    }
+
+    .subheading {
+      margin-top: 0.5rem;
+      font-size: 1.3rem;
+      color: $Second-Color;
+      font-weight: 400;
+    }
+  }
+
+  // --- Intro Section ---
+  .intro {
+    text-align: center;
+
+    .introCont {
+      margin-top: -5px;
+    }
+
+    p {
+      color: $Font-Color;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+
+
+    }
+
+    .cta-btn {
+      background-color: $Second-Color;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.3s ease;
+
+      &:hover {
+        background-color: darken($Second-Color, 10%);
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  // --- Recommended Section ---
+  .recommended {
+    margin: 2rem auto;
+
+    .line-container {
+      @include section-line;
+    }
+
+    .topic {
+      font-size: $font-Size;
+      font-weight: 600;
+      color: $First-Color;
+
+    }
+
+
+    .all-courses {
+
+      text-decoration: underline;
+      color: $First-Color;
+      font-weight: 500;
+
+      &:hover {
+        color: $Second-Color;
+      }
+    }
+  }
+
+  // --- What We Offer + Programmes Overview ---
+  .what-we-offer {
+    .line-container {
+      @include section-line;
+    }
+
+    .offer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+
+      .offer-text {
+        flex: 1 1 400px;
+        max-width: 500px;
+
+        ul {
+          list-style: none;
+          padding: 0;
+
+          strong {
+            color: #5c5c5c;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-top: 30px;
+
+          }
+         
+          li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin: 0.8rem 0 1rem;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.5;
+
+            &::before {
+              content: "•";
+              position: absolute;
+              left: 0;
+              color: $Second-Color;
+              font-size: 1.5rem;
+
+            }
+          }
+        }
+      }
+
+      .offer-image {
+        flex: 1 1 350px;
+        max-width: 550px;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 20px;
+
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  // --- Follow Us Section ---
+  .follow-us {
+    text-align: center;
+    margin-top: 3rem;
+
+    .social-icons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+
+      a {
+        font-size: 1.8rem;
+        color: $First-Color;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: $Second-Color;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  // --- Philosophy Section ---
+  .philosophy {
+    margin: 2.5rem auto;
+
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.5;
+
+    p+p {
+      margin-top: 1rem;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import '../../App.scss';
+
+.course-details-modal {
+  .noti1 {
+    color: $alert-color;
+    
+  }
+
+  img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    object-fit: contain;
+    border: 1px solid $Font-Color;
+  }
+
+  p {
+    margin: 15px;
+    font-size: 1rem;
+    color: $Font-Color;
+
+    strong {
+      margin-right: 5px;
+    }
+  }
+
+  .booked-label {
+    color: rgb(23, 204, 23);
+  }
+
+}

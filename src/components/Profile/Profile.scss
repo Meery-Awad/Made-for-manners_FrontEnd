@@ -1,0 +1,123 @@
+@import '../../App.scss';
+$box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+.ProfilePage {
+    margin-top: $top;
+
+    .courseValid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .ProfileHeader {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 4px solid $First-Color; // Gold
+            box-shadow: $box-shadow;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: $First-Color;
+        }
+
+        .info {
+            display: block;
+        }
+
+        .edit-btn {
+            margin-left: auto;
+            font-size: $Font-Size;
+
+            :hover {
+                color: $First-Color;
+            }
+        }
+    }
+
+    .TabsList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      
+        margin: 30px auto;
+
+
+        button {
+            padding: 10px;
+            border-radius: 8px;
+            background: $light-bg;
+            color: $Font-Color;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: $box-shadow;
+
+            &:hover {
+                background: $Second-Color;
+                color: white;
+               
+            }
+
+            &.active {
+                background: $First-Color; // Gold
+                color: white;
+            }
+        }
+    }
+
+    .VideosGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 1.8rem 0;
+
+        .VideoCard {
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            img {
+                width: 100%;
+                height: 130px;
+                object-fit: cover;
+
+            }
+
+            h3 {
+                font-size: 14px;
+                font-weight: 600;
+                padding: 10px;
+                color: $Font-Color;
+                display: flex;
+
+
+            }
+
+            button {
+                margin-left: auto;
+                color: $First-Color;
+                text-decoration: underline;
+                cursor: pointer;
+
+            }
+        }
+    }
+}

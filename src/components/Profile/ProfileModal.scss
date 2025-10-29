@@ -1,0 +1,109 @@
+@import '../../App.scss';
+
+.ProfileModal {
+
+  .modal-content {
+    border-radius: 12px;
+    border: 3px solid $Second-Color;
+    padding: 1.5rem;
+    background-color: #fff;
+  }
+
+  .noti {
+    margin: 0.5rem 0;
+    text-align: left;
+  }
+
+  .eye-icon {
+    top: 42px;
+  }
+
+  .modal-header {
+    border-bottom: 2px solid $Second-Color;
+
+    .modal-title {
+      color: $First-Color;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .btn-close {
+      filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+ 
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-group {
+      label {
+        font-weight: 600;
+        color: $Second-Color;
+        margin-bottom: 0.25rem;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 2px solid $Second-Color;
+        border-radius: 8px;
+        outline: none;
+        transition: all 0.2s;
+
+        &:focus {
+          border-color: $First-Color;
+          box-shadow: 0 0 5px rgba($First-Color, 0.5);
+        }
+      }
+    }
+
+    .img-preview {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid $First-Color;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .modal-footer {
+    border-top: 2px solid $Second-Color;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &.btn-secondary {
+        background-color: #f5f5f5;
+        color: $Second-Color;
+        border: 2px solid $Second-Color;
+
+        &:hover {
+          background-color: $Second-Color;
+          color: #fff;
+        }
+      }
+
+      &.btn-primary {
+        background-color: $First-Color;
+        color: #fff;
+        border: 2px solid $First-Color;
+
+        &:hover {
+          background-color: darken($First-Color, 10%);
+          border-color: darken($First-Color, 10%);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@import '../../App.scss';
+
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  width: 40vw;
+  padding: 0 7px;
+  margin-left: auto;
+  z-index: 10;
+
+  .search-box {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    transition: all 0.4s ease;
+  
+    input {
+      padding: 8px 12px;
+      width: 38vw;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    &.show {
+      max-width: 100%;
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .search-icon {
+    @include btn;
+    cursor: pointer;
+    z-index: 2;
+    color: $First-Color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-container {
+
+    .search-box {
+      margin-top: 50px; 
+
+      input {
+        width: 65vw;
+      }
+
+      &.show {
+        max-width: 65vw;
+      }
+    }
+
+  }
+}
