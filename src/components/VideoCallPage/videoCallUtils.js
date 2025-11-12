@@ -42,7 +42,6 @@ export const initAdminControls = (userDetails) => {
     }
   };
 
-  // تحديث القائمة مع تحديث الكارد مباشرة عند تغيير الاسم أو حالة المايك والكام
   window.renderAdminMenu = (usersMap) => {
     window.globalUsersMap = usersMap;
     menu.innerHTML = "";
@@ -51,7 +50,6 @@ export const initAdminControls = (userDetails) => {
     info.style.marginBottom = "15px";
     menu.append(info);
     Object.entries(usersMap).forEach(([uid, user]) => {
-
       if (user.email == currentUseremail) return;
 
       const row = document.createElement("div");
@@ -61,7 +59,6 @@ export const initAdminControls = (userDetails) => {
       name.innerText = user.name || `User ${uid}`;
       name.style.marginRight = "10px";
 
-      // تحديث اسم الكارد
       const cardLabel = document.querySelector(`#card-${uid} .video-label`);
       if (cardLabel) cardLabel.innerText = user.name || `User ${uid}`;
 
@@ -107,7 +104,6 @@ export const initAdminControls = (userDetails) => {
     });
   };
 };
-
 
 export const createVideoCard = (uid, username, adminEmail, userEmail, controls = false, localTracksRef) => {
   const cardId = `card-${uid}`;
@@ -198,6 +194,8 @@ export const createVideoCard = (uid, username, adminEmail, userEmail, controls =
         if (screenTrack.playing) {
           await client.unpublish([screenTrack]);
           screenTrack.stop();
+          if(screenBtn.stop >1)
+            console.log('video add successfly')
         }
         box.innerHTML = "";
         await client.publish([screenTrack]);
@@ -240,7 +238,7 @@ export const createVideoCard = (uid, username, adminEmail, userEmail, controls =
   const container = document.getElementById("video-container");
   if (!container) return videoBox;
 
-  if (isAdmin) container.append(card);
+  if (isAdmin) container.prepend(card);
   else {
     let othersGrid = document.getElementById("others-grid");
     if (!othersGrid) {
@@ -252,6 +250,16 @@ export const createVideoCard = (uid, username, adminEmail, userEmail, controls =
     othersGrid.append(card);
   }
 
+  
+  const totalUsers = container.querySelectorAll(".video-card").length;
+  if (totalUsers === 1) {
+    card.classList.add("single-user");
+    container.classList.add("single-user");
+  } else {
+    container.classList.remove("single-user");
+    document.querySelectorAll(".video-card").forEach(c => c.classList.remove("single-user"));
+  }
+
   return videoBox;
 };
 
@@ -260,13 +268,10 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
 ) => {
   const userId = userDetails.id || userDetails._id;
   const { name, email } = userDetails;
-
   try {
     setLoading(true)
-
     const res = await axios.get("https://madeformanners-backend.onrender.com/api/agora/agora-token", { params: { courseId: course._id, uid: userId } });
     const { token, appID, channelName } = res.data;
-
     client.removeAllListeners();
     await client.join(appID, channelName, token, userId);
 
@@ -284,10 +289,9 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
     if (tracksToPublish.length) await client.publish(tracksToPublish);
     const localVideoBox = createVideoCard(userId, name, admin.email, email, true, localTracksRef);
     if (camTrack.enabled) camTrack.play(localVideoBox);
-
     setJoined(true);
     initAdminControls(userDetails);
-
+    
     if (typeof window.renderAdminMenu === "function") {
       window.renderAdminMenu({ [userId]: { name, email } });
     }
@@ -302,7 +306,6 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
       }
     });
 
-    // 🔹 تحديث قائمة الهمبرغر لجميع المستخدمين بدون المستخدم الحالي
     if (typeof window.renderAdminMenu === "function") {
       window.renderAdminMenu({
         ...usersMap,
@@ -310,6 +313,7 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
       });
     }
 
+  
     client.remoteUsers.forEach(async (remoteUser) => {
       if (remoteUser.uid === userId) return;
 
@@ -342,7 +346,7 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
 
       if (mediaType === "video" && remoteUser.videoTrack) remoteUser.videoTrack.play(videoBox);
       if (mediaType === "audio" && remoteUser.audioTrack) remoteUser.audioTrack.play();
-
+      
       setUsersMap(prev => {
         const updated = { ...prev, [remoteUser.uid]: { name: userName, email: userEmail } };
         if (typeof window.renderAdminMenu === "function") {
@@ -370,7 +374,7 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
         return newMap;
       });
 
-      // حذف الهمبرغر والقائمة عند خروج المستخدم الحالي
+      
       const currentUserId = userDetails.id;
       if (remoteUser.uid == currentUserId) {
         const hamburger = document.getElementById("admin-hamburger");
@@ -401,8 +405,8 @@ export const joinCallHandler = async (course, userDetails, admin, setJoined, set
         return pushState.apply(this, arguments);
       };
     }
-    setLoading(false)
-
+    setLoading(false);
+    
   } catch (err) {
     alert(" Server error while joining the call, please try again");
   }
@@ -421,7 +425,7 @@ export const leaveCallHandler = async (localTracksRef, course, userDetails, setU
     const container = document.getElementById("video-container");
     if (container) container.innerHTML = "";
 
-    // حذف الهمبرغر والقائمة عند خروج المستخدم الحالي
+    
     const hamburger = document.getElementById("admin-hamburger");
     const menu = document.getElementById("admin-menu");
     if (hamburger) hamburger.remove();
@@ -436,8 +440,8 @@ export const leaveCallHandler = async (localTracksRef, course, userDetails, setU
     });
 
     setUsersMap(usersObject);
-    setLoading(false)
-
+    setLoading(false);
+   
   } catch (err) {
     alert("Server error while leaving the video, please try again");
   }

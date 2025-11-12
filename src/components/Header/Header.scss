@@ -14,6 +14,28 @@
         display: none !important;
     }
 
+    .fa-bell {
+        cursor: pointer;
+        margin: 0px 35px;
+        color: #626262;
+        font-size: 1.3rem;
+    }
+
+    .notificationMarks {
+        position: absolute;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        background-color: $alert-color;
+        margin: 0px 30px;
+    }
+
+    .profileImg {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 100%;
+    }
+
     .dropdown-menu .dropdown-item:focus,
     .dropdown-menu .dropdown-item:active,
     .dropdown-menu .dropdown-item.active {
@@ -27,7 +49,7 @@
     }
 
     img {
-        height: 80px;
+        height: 70px;
 
     }
 }

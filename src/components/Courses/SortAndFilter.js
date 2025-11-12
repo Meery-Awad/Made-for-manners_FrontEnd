@@ -50,11 +50,10 @@ const SortAndFilter = () => {
             filtered = filtered.filter(course =>
                 Array.isArray(course.categories) &&
                 selectedLevels.every(level => course.categories.includes(level))
-            
             );
            
         }
-
+        
         if (startDate) {
             const start = new Date(startDate);
             filtered = filtered.filter(course => new Date(course.date) >= start);

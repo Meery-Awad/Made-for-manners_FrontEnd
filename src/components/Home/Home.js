@@ -14,7 +14,7 @@ import waving from '../../images/waving.gif'
 const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    new WOW({ live: false }).init(); // تفعيل Wow.js
+    new WOW({ live: false }).init(); 
   }, []);
 
   const [showVideo, setShowVideo] = useState(false);
@@ -55,6 +55,7 @@ const Home = () => {
           </div>
         </div>
         <div className='introCont'>
+         
           <p>Welcome to Made for Manners, where timeless refinement meets real-world confidence. Here, etiquette isn’t about rules — it’s about freedom and expression.</p>
           <p>Our approach transforms etiquette into a tool for confidence, communication, and grace.</p>
           <p>Watch how modern manners can empower you to connect and carry yourself with ease.</p>

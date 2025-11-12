@@ -11,7 +11,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
     const screenStreamRef = useRef(null);
     const state = useSelector((state) => state.data);
     const { reload, setReload, Loading, setLoading, serverUrl } = useBetween(state.useShareState);
-
+  
     const handleStart = async () => {
         try {
 

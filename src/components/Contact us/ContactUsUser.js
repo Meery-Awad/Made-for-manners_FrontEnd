@@ -91,10 +91,14 @@ const ContactUsUser = () => {
       });
       setFormData({ name: "", email: "", phone: "", message: "" });
       setSuccess("Your message has been sent successfully!");
-      setLoading(false)
+      await axios.post(`${serverUrl}/api/notification/contactusAlert`, formData);
+
     } catch (err) {
       setError("Failed to send message, please try again.");
-      setLoading(false)
+
+    }
+    finally {
+      setLoading(false);
     }
   };
 

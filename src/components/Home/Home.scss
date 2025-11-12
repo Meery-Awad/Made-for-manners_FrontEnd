@@ -9,7 +9,6 @@
       height: 25px;
 
     }
-
   }
 
   section {
@@ -22,7 +21,7 @@
     padding: 3rem 1rem;
     background-color: #fafafa;
     border-radius: 20px;
-    text-align: center;
+    
 
     h1 {
       font-size: $font-Size;
@@ -40,8 +39,7 @@
 
   // --- Intro Section ---
   .intro {
-    text-align: center;
-
+ 
     .introCont {
       margin-top: -5px;
     }
@@ -75,12 +73,7 @@
 
   // --- Recommended Section ---
   .recommended {
-    margin: 2rem auto;
-
-    .line-container {
-      @include section-line;
-    }
-
+   
     .topic {
       font-size: $font-Size;
       font-weight: 600;

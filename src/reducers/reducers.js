@@ -11,11 +11,11 @@ const reminders = (state = [], action) => {
         const [allCourses, setAllCourses] = useState([])
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
-
-        //    const serverUrl = 'http://localhost:5000'
-          const serverUrl = 'https://madeformanners-backend.onrender.com'
+          const serverUrl = 'http://localhost:5000'
+        // const serverUrl = 'https://madeformanners-backend.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
         // <SEO>
+
         const websiteTitle = `Made for Manners`
         const pageDescription = `Discover ${websiteTitle} — your destination for online etiquette and social skills courses. Learn professional behavior, confidence, and refined manners through engaging video lessons and expert guidance.`;
 
@@ -33,8 +33,6 @@ const reminders = (state = [], action) => {
 
         const registerKeyWords = `${websiteTitle} registration, create an account, sign up, enroll online`;
         // </SEO>
-
-
 
         const [userDetails, setUserDetails] = useState(() => {
             const stored = localStorage.getItem(`user`);
@@ -68,7 +66,7 @@ const reminders = (state = [], action) => {
             joinedUsers: [],
 
         })
-        const admin = { email: 'iuliana.esanu28@gmail.com', passport: 'julia12345' };
+        const admin = { email: 'meeryawad19@gmail.com', passport: 'julia12345' };
 
         useEffect(() => {
             setLoading(true)

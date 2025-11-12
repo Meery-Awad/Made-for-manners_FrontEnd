@@ -134,13 +134,13 @@ const Profile = () => {
           className={activeTab === "watched" ? "active" : ""}
           onClick={() => setActiveTab("watched")}
         >
-          <i className="fas fa-check"></i> Videos to watch({watchedCourseLeng})
+          <i className="fas fa-check"></i> Courses to watch({watchedCourseLeng})
         </button>
         <button
           className={activeTab === "registered" ? "active" : ""}
           onClick={() => setActiveTab("registered")}
         >
-          <i className="fas fa-hourglass-half"></i> Booked Videos ({bookedCourseLeng})
+          <i className="fas fa-hourglass-half"></i> Booked Courses ({bookedCourseLeng})
         </button>
       </div>
 
