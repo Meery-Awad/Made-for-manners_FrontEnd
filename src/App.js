@@ -1,8 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-
 import './App.scss';
-
 import Header from './components/Header/Header';
 import VideoCall from "./components/VideoCallPage/VideoCallPage";
 import LoginPage from "./components/LogIn/Login";
@@ -20,17 +18,13 @@ import ForgotPassword from "./components/LogIn/ForgotPassword";
 import ResetPassword from "./components/LogIn/resetPassword";
 
 function App() {
-
   return (
-
     <div className="page-container">
-
       <Router>
         <Header />
         <Loading />
          <main className="content">
         <Routes>
-         
             <Route path="/" element={<Navigate replace to='/home' />} />
             <Route path="/home" element={<Home />} />
             <Route path="/courses" element={<CoursesPage />} />
@@ -46,13 +40,12 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/reset-password/:token" element={<ResetPassword/>}/>
             {/* other rotes  */}
-          
         </Routes>
+      
         </main>
         <Footer />
         {/* <Footer /> */}
       </Router>
-
     </div >
   );
 }

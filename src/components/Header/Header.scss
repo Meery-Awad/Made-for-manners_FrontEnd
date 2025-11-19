@@ -1,8 +1,32 @@
 @import '../../App.scss';
 
+
 .Header {
     z-index: 1000;
     background-color: $First-Color;
+
+    .NotiContaner {
+        max-height: 80vh;
+        overflow-y: auto;
+        margin-top: 10px;
+    }
+
+    .notification {
+        width: 97%;
+        border: 1px solid $Second-Color;
+        border-radius: 10px;
+        margin: 5px;
+
+        .date {
+            font-size: 12px;
+            margin: -5px 27px;
+            color: rgb(103, 103, 103);
+        }
+
+        div {
+            margin-left: 25px;
+        }
+    }
 
 
     ul {
@@ -12,6 +36,34 @@
 
     .no-arrow::after {
         display: none !important;
+    }
+
+    .fa-bell {
+        cursor: pointer;
+        margin: 0px 35px;
+        color: #626262;
+        font-size: 1.3rem;
+    }
+
+    .notificationMarks {
+        position: absolute;
+        border-radius: 100%;
+        width: 17px;
+        height: 17px;
+        font-size: 12px;
+        background-color: $alert-color;
+        margin: -6px 22px;
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        color: #ffff;
+        
+    }
+
+    .profileImg {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 100%;
     }
 
     .dropdown-menu .dropdown-item:focus,
@@ -27,7 +79,95 @@
     }
 
     img {
-        height: 80px;
+        height: 70px;
+
+    }
+}
+
+.toast-container {
+
+    top: 5rem;
+    right: 1.25rem;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+
+    &.fade-in {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    &.fade-out {
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .toast1 {
+        background-color: #fff;
+        border: 1px solid #d1d5db;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 20rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        pointer-events: auto;
+
+        .toast-content1 {
+            strong {
+                display: block;
+                font-weight: 600;
+            }
+
+            p {
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+                color: #374151;
+            }
+
+            span {
+                font-size: 0.75rem;
+                color: #9ca3af;
+            }
+        }
+
+        .close-btn {
+            margin-left: 0.5rem;
+            color: #9ca3af;
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            line-height: 1;
+
+            &:hover {
+                color: #6b7280;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .toast-container {
+        right: 0.5rem;
+        width: auto;
+        max-width: 90vw;
+    }
+
+    .toast {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .NotiContaner {
+        width: 97vw;
 
     }
 }

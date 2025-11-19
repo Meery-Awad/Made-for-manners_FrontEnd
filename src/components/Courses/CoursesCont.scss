@@ -26,7 +26,8 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin:-13px 0 1rem 0;
+    margin: -13px 0 1rem 0;
+
     .secondSide {
       display: flex;
     }
@@ -85,15 +86,27 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
         }
       }
 
-      .particNum {
+      @mixin toprow {
         position: absolute;
         top: 8px;
-        left: 8px;
-        background: $First-Color;
         color: #fff;
         padding: 4px 8px;
         border-radius: 12px;
         font-size: 14px;
+      }
+
+      .particNum {
+        @include toprow();
+        left: 8px;
+        background: $First-Color;
+
+      }
+
+      .notLive {
+        @include toprow();
+        right: 8px;
+        background: $Second-Color;
+
       }
     }
 
@@ -109,12 +122,16 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
         font-weight: 700;
         font-size: 1.3rem;
         display: flex;
-        p{
+
+        p {
           font-size: 17px;
           margin: 3px 10px;
-         
+
         }
+
       }
+
+
 
       .name {
         font-weight: 700;
@@ -122,6 +139,7 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
         color: gray;
         @include ellipsis-horizontal;
       }
+
 
       .date {
         color: $Font-Color;
@@ -186,6 +204,25 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
       }
     }
   }
+
+  .btn-wrapper1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+
+
+    .show-more-btn,
+    .show-less-btn {
+      border: 1px solid $Second-Color;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -198,5 +235,3 @@ $shadow-dark: rgba(0, 0, 0, 0.15);
     width: 90vw;
   }
 }
-
-

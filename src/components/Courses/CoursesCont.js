@@ -11,9 +11,7 @@ import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import BookedUsersModal from "./bookedUserModal";
 
-
 const CoursesContaner = ({ type = "all" }) => {
-
   const state = useSelector((state) => state.data);
   const {
     courses,
@@ -23,14 +21,21 @@ const CoursesContaner = ({ type = "all" }) => {
     setEditOrAdd,
     reload,
     setReload,
-    setLoading, showDetails, setShowDetails, selectedCourse, setSelectedCourse,
-    serverUrl, pageDescription, pageKeywords, coursesKeyWords,
-    websiteTitle
+    setLoading,
+    showDetails,
+    setShowDetails,
+    selectedCourse,
+    setSelectedCourse,
+    serverUrl,
+    pageDescription,
+    pageKeywords,
+    coursesKeyWords,
+    websiteTitle,
   } = useBetween(state.useShareState);
 
   const [showBookedUsers, setShowBookedUsers] = useState(false);
   const [bookedUsersList, setBookedUsersList] = useState([]);
-
+  const [visibleCount, setVisibleCount] = useState(4); 
   const openBookedUsers = (users) => {
     setBookedUsersList(users);
     setShowBookedUsers(true);
@@ -40,14 +45,14 @@ const CoursesContaner = ({ type = "all" }) => {
 
   const [indexDelete, setIndexDelete] = useState(-1);
   const { handleWatch, showModal, setShowModal, modalMsg, modalTitle, setModalMsg } = useWatch();
-  useEffect(() => {
 
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const location = useLocation();
 
   const openDetails = (course) => {
-
     setSelectedCourse(course);
     setShowDetails(true);
   };
@@ -66,7 +71,7 @@ const CoursesContaner = ({ type = "all" }) => {
         setReload(!reload);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         alert(" Error while deleting the course, please try again.");
       });
   };
@@ -79,14 +84,11 @@ const CoursesContaner = ({ type = "all" }) => {
     }
   };
 
-
   const handleCheckout = async (courseName, price, courseId) => {
-
     if (!userDetails.id) {
-      setModalMsg('Please log in to book and watch the videos')
+      setModalMsg("Please log in to book and watch the videos");
       setShowModal(true);
       return;
-
     }
 
     try {
@@ -94,34 +96,55 @@ const CoursesContaner = ({ type = "all" }) => {
         courseName,
         price,
         courseId,
-        userName: userDetails.name
+        userName: userDetails.name,
       });
 
       window.location.href = res.data.url;
-    } catch (err) {
-
+    } catch {
       alert("Error creating checkout session please try again");
     }
-
   };
 
   const playCoursesList = () => {
-
     const displayedCourses =
       type === "recommended"
-        ? courses.filter((course) => course.recommended)
-        : courses;
-    if (displayedCourses.length === 0) return <p className="NoCourses"> No {type == "recommended" ? 'recommended' : ''} courses available.`</p>;
+        ? courses.filter(
+            (course) =>
+              course.recommended &&
+              (userDetails.email === admin.email ||
+                (course.isNotLive && course.link) ||
+                !course.isNotLive)
+          )
+        : courses.filter(
+            (course) =>
+              userDetails.email === admin.email ||
+              (course.isNotLive && course.link) ||
+              !course.isNotLive
+          );
 
-    return displayedCourses.map((item, index) => {
+    if (displayedCourses.length === 0)
+      return (
+        <p className="NoCourses">
+          No {type === "recommended" ? "recommended" : ""} courses available.
+        </p>
+      );
 
+    
+    const visibleCourses =
+      type === "recommended"
+        ? displayedCourses.slice(0, visibleCount)
+        : displayedCourses;
+
+    return visibleCourses.map((item, index) => {
       const isAlreadyBooked = userDetails.courses.some((c) => c._id === item._id);
+
       const uniqueUsers = item.bookedUsers
         ? item.bookedUsers.filter(
-          (user, index, self) =>
-            index === self.findIndex((u) => u.email === user.email)
-        )
+            (user, index, self) =>
+              index === self.findIndex((u) => u.email === user.email)
+          )
         : [];
+
       return (
         <div
           className="CourseItem"
@@ -130,28 +153,31 @@ const CoursesContaner = ({ type = "all" }) => {
           style={{ cursor: "pointer" }}
         >
           <div className="imageWrapper">
+            {item.isNotLive && <i className="notLive">is Not Live </i>}
             <img src={item.img} alt="Course" />
-            <span className="particNum"
-              style={{ background: userDetails.email == admin.email ? '#C6A662' : '#ACABAD' }}
+            <span
+              className="particNum"
+              style={{
+                background: userDetails.email === admin.email ? "#C6A662" : "#ACABAD",
+              }}
               onClick={(e) => {
-                if (userDetails.email == admin.email) {
+                if (userDetails.email === admin.email) {
                   e.stopPropagation();
                   openBookedUsers(item.bookedUsers);
                 }
-
-              }}>
-              <i className="fas fa-user"></i> {uniqueUsers.length}
+              }}
+            >
+              <i className="fas fa-user"></i> {uniqueUsers.length -1 }
             </span>
           </div>
+
           <div className="details">
             <div className="bottomRow">
-              <div className="price">{item.price} £ {item.price==0 && <p> (Free)</p>}</div> 
+              <div className="price">
+              £ {item.price}  {item.price === 0 && <p>(Free)</p>}
+              </div>
               {userDetails.email === admin.email && type !== "recommended" && (
-                <div
-                  className="icons "
-                  onClick={(e) => e.stopPropagation()}
-                >
-
+                <div className="icons" onClick={(e) => e.stopPropagation()}>
                   <i
                     className="fas fa-edit"
                     onClick={() => editCourse(index)}
@@ -165,35 +191,35 @@ const CoursesContaner = ({ type = "all" }) => {
                 </div>
               )}
             </div>
-            <div className="name">{item.name}</div>
-            <div className="date">
-              <span><i className="fas fa-calendar-alt"></i>{" "}{item.date} </span>
-              <span ><i className="fas fa-clock"></i> {" "} {`(${item.time}) - (${item.endtime})`}</span>
 
+            <div className="name">{item.name}</div>
+
+            <div className="date">
+              <span>
+                <i className="fas fa-calendar-alt"></i> {item.date}
+              </span>
+              <span>
+                <i className="fas fa-clock"></i> ({item.time}) - ({item.endtime})
+              </span>
             </div>
             <div className="description">{item.description}</div>
 
-            {isAlreadyBooked || userDetails.email == admin.email ? (
+            {isAlreadyBooked || userDetails.email === admin.email ? (
               <button
                 className="courseBtn"
                 onClick={(e) => {
                   e.stopPropagation();
                   const now = new Date();
-
                   const courseDate = new Date(item.date);
-
                   const [endHour, endMinute] = item.endtime.split(":");
                   const endDateTime = new Date(courseDate);
                   endDateTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
 
                   if (now > endDateTime) {
                     openDetails(item);
-
-
                   } else {
                     handleWatch(item);
                   }
-
                 }}
               >
                 Join
@@ -214,6 +240,15 @@ const CoursesContaner = ({ type = "all" }) => {
       );
     });
   };
+
+  const totalRecommended = courses.filter(
+    (course) =>
+      course.recommended &&
+      (userDetails.email === admin.email ||
+        (course.isNotLive && course.link) ||
+        !course.isNotLive)
+  ).length;
+
   return (
     <div className="itemsContaner">
       {location.pathname === "/courses" && (
@@ -224,7 +259,8 @@ const CoursesContaner = ({ type = "all" }) => {
           <meta name="keywords" content={`${pageKeywords} ${coursesKeyWords} `} />
           <meta property="og:title" content={`Courses - ${websiteTitle}`} />
           <meta property="og:description" content={pageDescription} />
-        </Helmet>)}
+        </Helmet>
+      )}
 
       <div className="mainContaner">
         {Array.isArray(courses) ? (
@@ -233,6 +269,28 @@ const CoursesContaner = ({ type = "all" }) => {
           <p className="NoCourses">Loading...</p>
         )}
       </div>
+
+   
+      {type === "recommended" && totalRecommended > 4 && (
+        <div className="btn-wrapper1">
+          {visibleCount < totalRecommended && (
+            <button
+              className="show-more-btn"
+              onClick={() => setVisibleCount((prev) => prev + 4)}
+            >
+              Show More
+            </button>
+          )}
+          {visibleCount > 4 && (
+            <button
+              className="show-less-btn"
+              onClick={() => setVisibleCount((prev) => Math.max(prev - 4, 4))}
+            >
+              Show Less
+            </button>
+          )}
+        </div>
+      )}
 
       <Delete index={indexDelete} setIndexDelete={setIndexDelete} onDelete={deleteCourse} />
 
@@ -251,6 +309,7 @@ const CoursesContaner = ({ type = "all" }) => {
         onBook={handleCheckout}
         onWatch={handleWatch}
       />
+
       <BookedUsersModal
         show={showBookedUsers}
         onClose={closeBookedUsers}
@@ -259,7 +318,7 @@ const CoursesContaner = ({ type = "all" }) => {
         admin={admin}
       />
     </div>
-
   );
 };
+
 export default CoursesContaner;

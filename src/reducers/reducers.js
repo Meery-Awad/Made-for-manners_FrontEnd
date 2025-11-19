@@ -11,11 +11,11 @@ const reminders = (state = [], action) => {
         const [allCourses, setAllCourses] = useState([])
         const [Loading, setLoading] = useState(false);
         const [reload, setReload] = useState(false);
-
-        //    const serverUrl = 'http://localhost:5000'
-          const serverUrl = 'https://madeformanners-backend.onrender.com'
+        const serverUrl = 'http://localhost:5000'
+        // const serverUrl = 'https://madeformanners-backend.onrender.com'
         const courseValid = 'Please note that the course will be available to watch for only one week after the course date'
         // <SEO>
+
         const websiteTitle = `Made for Manners`
         const pageDescription = `Discover ${websiteTitle} — your destination for online etiquette and social skills courses. Learn professional behavior, confidence, and refined manners through engaging video lessons and expert guidance.`;
 
@@ -34,19 +34,49 @@ const reminders = (state = [], action) => {
         const registerKeyWords = `${websiteTitle} registration, create an account, sign up, enroll online`;
         // </SEO>
 
-
-
-        const [userDetails, setUserDetails] = useState(() => {
-            const stored = localStorage.getItem(`user`);
-            return stored ? JSON.parse(stored) : {
-                id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: []
-            };
+        // const [userDetails, setUserDetails] = useState(() => {
+        //     const stored = localStorage.getItem(`user`);
+        //     return stored ? JSON.parse(stored) : {
+        //         id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: [], notifications :[]
+        //     };
+        // });
+        const [userDetails, setUserDetails] = useState({
+            id: '',
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            img: '',
+            courses: [],
+            notifications: []
         });
+         const [notifications, setNotifications] = useState(userDetails.notifications);
+        //  localStorage.removeItem("userID");
+
+        const [userId, setUserId] = useState(() => {
+            const storedUser = localStorage.getItem("userID");
+            return storedUser ? JSON.parse(storedUser)?.id || "" : "";
+        });
+        useEffect(() => {
+           if(userId){
+            const fetchUser = async () => {
+                try {
+                    const res = await axios.get(`${serverUrl}/api/users/${userId}`);
+                    setUserDetails(res.data);
+                    
+                } catch (error) {
+                    console.log("Error fetching user:", error);
+                }
+            };
+
+            fetchUser();
+        }
+        }, []);
 
         const [updatedData, setUpdatedData] = useState(userDetails);
         const [selectedCourse, setSelectedCourse] = useState(0);
         const [showDetails, setShowDetails] = useState(false);
-       
+
         const categories = [
             { id: 0, level: 'Youth', icon: '', color: 'blue' },
             { id: 1, level: 'Student', icon: '', color: 'green' },
@@ -80,11 +110,12 @@ const reminders = (state = [], action) => {
                     setLoading(false)
                 } catch (error) {
                     alert(`Error loading the page, please try again`);
+                    setLoading(false)
                 }
             };
 
             CoursesData();
-        }, [reload]);
+        }, [reload,notifications]);
 
         useEffect(() => {
             localStorage.setItem(`user`, JSON.stringify(userDetails));
@@ -109,7 +140,8 @@ const reminders = (state = [], action) => {
             pageDescription, pageKeywords,
             contactUsKeyWords, aboutUsKeyWords, HomePageKeyWords, coursesKeyWords,
             loginKeyWords, registerKeyWords,
-            websiteTitle
+            websiteTitle,
+            notifications, setNotifications
 
         };
     };

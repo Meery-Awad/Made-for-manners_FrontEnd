@@ -6,17 +6,13 @@ import "./PromoVideo.scss";
 const PromoVideo = () => {
   return (
 
-   
-
       <div className="video-slider-container">
-
         <iframe
           src=""
           width="100%"
           height="100%"
           allow="autoplay; fullscreen"
           title="promo"
-
         ></iframe>
 
       </div>

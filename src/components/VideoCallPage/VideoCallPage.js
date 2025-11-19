@@ -49,6 +49,7 @@ const VideoCallPage = () => {
         course={course}
         admin={admin}
       />
+      
     </div>
 
   );

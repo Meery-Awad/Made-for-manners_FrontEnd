@@ -8,7 +8,7 @@ import axios from "axios";
 import noPhoto from '../../images/noImg.jpg'
 
 const CourseModal = () => {
- 
+
   const state = useSelector((state) => state.data);
   const {
     userDetails,
@@ -23,13 +23,24 @@ const CourseModal = () => {
     serverUrl,
     categories
   } = useBetween(state.useShareState);
-  
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [error, setError] = useState(false);
   const [timeError, setTimeError] = useState(false);
   const errorRef = useRef(null);
 
-  const { name, description, date, time, endtime, img, price, recommended, categories: selectedCategories = [] } = courseDetails;
+  const { 
+    name, 
+    description, 
+    date, 
+    time, 
+    endtime, 
+    img, 
+    price, 
+    recommended, 
+    isNotLive = false, 
+    categories: selectedCategories = [] 
+  } = courseDetails;
 
   const initCourseModal = () => {
     setCourseDetails({
@@ -41,6 +52,7 @@ const CourseModal = () => {
       img: null,
       price: 0,
       recommended: false,
+      isNotLive: false,
       categories: [],
       bookedUsers: [],
       joinedUsers: [],
@@ -91,6 +103,10 @@ const CourseModal = () => {
     setCourseDetails((prev) => ({ ...prev, recommended: !recommended }));
   };
 
+  const handleNotLiveChange = () => {
+    setCourseDetails(prev => ({ ...prev, isNotLive: !prev.isNotLive }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -119,7 +135,7 @@ const CourseModal = () => {
     };
 
     if (editOrAdd === 'Add') {
-      axios.post(`${serverUrl}/api/courses`, courseData, { headers })
+     await axios.post(`${serverUrl}/api/courses`, courseData, { headers })
         .then((res) => {
           setModalIsOpen(false);
           initCourseModal();
@@ -127,9 +143,10 @@ const CourseModal = () => {
           setReload(!reload);
         })
         .catch((err) => {
-          alert(" Error adding course, please try again later");
+          alert("Error adding course, please try again later");
           setLoading(false);
         });
+        await axios.post(`${serverUrl}/api/notification`, { course: courseData });
     } else {
       axios.put(`${serverUrl}/api/courses/${id}`, courseData, { headers })
         .then((res) => {
@@ -169,8 +186,18 @@ const CourseModal = () => {
       <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)} className="Model">
         <Modal.Body ref={errorRef}>
           <form className="Form" onSubmit={handleSubmit}>
+
+            {/* Checkbox at the top */}
+            <div className="checkBox">
+              <input 
+                type="checkbox" 
+                checked={isNotLive} 
+                onChange={handleNotLiveChange} 
+              />
+              <label className="lable"> Not Live</label>
+            </div>
+
             {error && <p className="error">Please fill out all required fields (*)</p>}
-          
 
             <div>
               <label className="lable">Course Name <span className="required">*</span></label>
@@ -194,7 +221,7 @@ const CourseModal = () => {
 
             <div>
               <label className="lable">Course Time <span className="required">*</span></label>
-              {timeError && <p className="error"> End time must be later than start time</p>}
+              {timeError && <p className="error">End time must be later than start time</p>}
               <p>from</p>
               <input type="time" name="time" value={time || ""} onChange={(e) => {
                 setCourseDetails(prev => ({ ...prev, time: e.target.value }));
@@ -230,16 +257,17 @@ const CourseModal = () => {
               <input type="file" accept="image/*" onChange={handleImageChange} />
               {img && (
                 <div className="img-container" style={{ position: 'relative', display: 'inline-block' }}>
-                   <button type="button" onClick={handleDeleteImage} className="deleteImgBtn" >x</button>
+                  <button type="button" onClick={handleDeleteImage} className="deleteImgBtn" >x</button>
                   <img src={img} alt="Preview" style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '8px' }} />
-                 
                 </div>
               )}
             </div>
+
             <div className="checkBox">
               <input type="checkbox" checked={recommended} onChange={handleCheckboxChange} />
               <label className="lable"> Recommended</label>
             </div>
+
           </form>
         </Modal.Body>
 

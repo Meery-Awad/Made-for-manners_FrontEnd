@@ -14,7 +14,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
 
     const handleStart = async () => {
         try {
-
+           
             if (!mediaRecorderRef.current) {
                 const stream = await navigator.mediaDevices.getDisplayMedia({
                     video: true,
@@ -71,12 +71,13 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
             });
             setReload(!reload)
             setLoading(!Loading)
-            alert("✅ The video has been uploaded. The video link has been saved in the course.");
+            alert(" The video has been uploaded. The video link has been saved in the course.");
         } catch (err) {
             // const serverMessage = err.response?.data?.message || err.message || "Unknown error";
             alert(`Failed to upload the video`);
             setReload(!reload)
-            setLoading(!Loading)           
+            setLoading(!Loading)
+            
         }
 
         setChunks([]);
@@ -84,6 +85,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
             mediaRecorderRef.current.stop();
             mediaRecorderRef.current = null;
         }
+
         if (screenStreamRef.current) {
             screenStreamRef.current.getTracks().forEach((t) => t.stop());
             screenStreamRef.current = null;
@@ -111,6 +113,7 @@ const ScreenRecordingControls = ({ userDetails, admin, course }) => {
                 </button>
             )}
         </div>
+        
         )
     );
 };

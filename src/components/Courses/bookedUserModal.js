@@ -20,7 +20,7 @@ const BookedUsersModal = ({ show, onClose, users, userDetails, admin }) => {
         <Modal.Title>Booked Users</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {uniqueUsers.length > 0 ? (
+        {uniqueUsers.length > 1 ? (
           <ul className="booked-users-list">
             {uniqueUsers.filter((user) => user.email !== admin.email).map((user, index) => (
               <li

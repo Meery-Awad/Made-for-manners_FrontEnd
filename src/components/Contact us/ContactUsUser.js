@@ -89,13 +89,27 @@ const ContactUsUser = () => {
         ...formData,
         phone: fullPhone,
       });
+     
+        await axios.post(`${serverUrl}/api/notification/contactusAlert`, {
+          ...formData,
+          phone: fullPhone,
+        });
+      
       setFormData({ name: "", email: "", phone: "", message: "" });
       setSuccess("Your message has been sent successfully!");
-      setLoading(false)
+      setLoading(false);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
+
+
     } catch (err) {
       setError("Failed to send message, please try again.");
-      setLoading(false)
+      setLoading(false);
     }
+
   };
 
   const content =

@@ -52,7 +52,6 @@ const SuccessPayment = () => {
           const courseWithValidDate = { ...course1, ValidDate: formattedDate };
           setCourse(courseWithValidDate);
 
-          // تخزين البيانات مؤقتًا قبل الريلود
           sessionStorage.setItem(
             "recentCourse",
             JSON.stringify({

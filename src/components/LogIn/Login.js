@@ -16,7 +16,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const isRegister = location.pathname.toLowerCase().includes('register');
@@ -27,12 +27,11 @@ const LoginPage = () => {
     setUserDetails((prev) => ({ ...prev, [name]: value }));
   };
 
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setUserDetails((prev) => ({ ...prev, img: reader.result }));
-      reader.readAsDataURL(file);
+      setUserDetails(prev => ({ ...prev, img: URL.createObjectURL(file) }));
     }
   };
 
@@ -42,11 +41,14 @@ const LoginPage = () => {
       fileInputRef.current.value = '';
     }
   };
-
-  const handleSubmit = (e) => {
+  const urlToFile = async (url, filename, mimeType) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new File([blob], filename, { type: mimeType });
+  };
+  const handleSubmit =  async (e) => {
     setLoading(true);
     e.preventDefault();
-    const headers = { 'content-type': 'application/json;charset=UTF-8' };
 
     if (isRegister) {
       const formData = new FormData();
@@ -54,15 +56,19 @@ const LoginPage = () => {
       formData.append("email", userDetails.email);
       formData.append("password", userDetails.password);
       formData.append("confirmPassword", userDetails.confirmPassword);
-      if (fileInputRef.current.files[0]) {
-        formData.append("img", fileInputRef.current.files[0]); // الملف نفسه مو base64
-      }
 
+      if (fileInputRef.current?.files[0]) {
+        formData.append("img", fileInputRef.current.files[0]);
+      } else {
+        const defaultImageFile = await urlToFile(icon, "default.png", "image/png");
+        formData.append("img", defaultImageFile);
+      }
+    
       axios.post(`${serverUrl}/api/users/register`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then(() => {
-     
+
           setLoading(false);
           navigate("/Login");
         })
@@ -79,13 +85,14 @@ const LoginPage = () => {
             name: res.data.name,
             email: res.data.email,
             password: res.data.password,
-            img: res.data.img || icon,
+            img: res.data.img,
             courses: res.data.courses,
+            notifications: res.data.notifications
           };
           setUpdatedData(newUser);
           setUserDetails(newUser);
           setLoading(false);
-          localStorage.setItem('user', JSON.stringify(newUser));
+          localStorage.setItem('userID', JSON.stringify({ id: res.data.id }));
           navigate('/Home');
         })
         .catch((err) => {
@@ -96,7 +103,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    setUserDetails({ id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: [] });
+    setUserDetails({ id: '', name: '', email: '', password: '', confirmPassword: '', img: '', courses: [], notifications: [] });
     setErorr('');
   }, [location]);
 
@@ -139,7 +146,7 @@ const LoginPage = () => {
               <input type={showPassword ? 'text' : 'password'} name="password" value={userDetails.password || ''} onChange={handleChange} required placeholder="Enter your password" />
               <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} eye-icon`} onClick={() => setShowPassword(!showPassword)}></i>
             </div>
-       
+
             {!isRegister && (
               <p className="text-center mt-3">
                 <NavLink to="/forgot-password" className="text-600 underline" >

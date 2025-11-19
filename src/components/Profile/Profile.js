@@ -14,13 +14,11 @@ import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const state = useSelector((state) => state.data);
-
   const { userDetails, setUserDetails, showDetails, setShowDetails, selectedCourse, setSelectedCourse,
     serverUrl, courseValid, setUpdatedData, setLoading, websiteTitle , pageDescription } = useBetween(state.useShareState);
   const { name, img, courses, email } = userDetails;
   const [watchedCourseLeng, setWatchedCourseLeng] = useState(0);
   const [bookedCourseLeng, setBookedCourseLeng] = useState(0)
-
   const [activeTab, setActiveTab] = useState("watched");
   const [watchedCourses, setWatchedCourses] = useState([]);
   const [bookingCourses, setBookingCourses] = useState([]);
@@ -59,6 +57,7 @@ const Profile = () => {
     window.scrollTo(0, 0);
   }, []);
 
+
   const renderVideos = (coursesArray) => {
     const uniqueCourses = [...new Map(coursesArray.map((c) => [c._id, c])).values()];
     return (
@@ -81,7 +80,8 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`${serverUrl}/api/users/deleteUser/${userDetails.id}`);
+      const userId = userDetails.id || userDetails._id;
+      await axios.delete(`${serverUrl}/api/users/deleteUser/${userId}`);
       setTimeout(() => {
         setUserDetails({
           id: '',
@@ -93,7 +93,7 @@ const Profile = () => {
           courses: [],
         });
 
-        localStorage.removeItem("user");
+        localStorage.removeItem("userID");
         navigate('/');
         setLoading(false);
       })
@@ -102,6 +102,8 @@ const Profile = () => {
       setLoading(false);
     }
   };
+
+ 
 
   return (
     <div className="ProfilePage">
@@ -134,13 +136,14 @@ const Profile = () => {
           className={activeTab === "watched" ? "active" : ""}
           onClick={() => setActiveTab("watched")}
         >
-          <i className="fas fa-check"></i> Videos to watch({watchedCourseLeng})
+
+          <i className="fas fa-check"></i> Courses to watch({watchedCourseLeng})
         </button>
         <button
           className={activeTab === "registered" ? "active" : ""}
           onClick={() => setActiveTab("registered")}
         >
-          <i className="fas fa-hourglass-half"></i> Booked Videos ({bookedCourseLeng})
+          <i className="fas fa-hourglass-half"></i> Booked Courses ({bookedCourseLeng})
         </button>
       </div>
 
